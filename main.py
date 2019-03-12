@@ -1,4 +1,5 @@
 import math
+import sys
 
 
 data = {
@@ -34,7 +35,7 @@ data = {
 		'L1D2': 5,
 	},
 	
-	'Enzo Gentile': { 
+	'Salvatore Nocerino': { 
 		'L3D1': 5, 
 	},
 
@@ -75,9 +76,10 @@ def recommend(person, bound, similarity=pearson_similarity):
 
 	scores.sort()
 	scores.reverse()
+	#print ("prima",scores)
 	scores = scores[0:bound]
 
-	print (scores)
+	#print ("dopo",scores)
 
 	recomms = {}
 
@@ -101,7 +103,11 @@ def recommend(person, bound, similarity=pearson_similarity):
 	return recomms
 def main():
 	
-    print recommend("Gennaro Marrazzo", 5, pearson_similarity)
+	'''name = raw_input("Please enter the User's Name: ")
+	print "You entered", name, ". I am calculating the recommandations: "
+	output = recommend(name, 5, pearson_similarity)
+	print output'''
+	print recommend("Stefano Volpe", 1, pearson_similarity)
     #print euclidean_similarity('Gennaro Marrazzo', 'Vincenzo Paparo')	
 
 if __name__ == '__main__':
