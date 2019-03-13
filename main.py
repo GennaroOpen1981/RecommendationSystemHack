@@ -107,6 +107,8 @@ def main():
 	print "You entered", name, ". I am calculating the recommandations: "
 	output = recommend(name, 5, pearson_similarity)
 	print output'''
+	
+	
 	print recommend("Stefano Volpe", 1, pearson_similarity)
     #print euclidean_similarity('Gennaro Marrazzo', 'Vincenzo Paparo')	
 
