@@ -1,10 +1,15 @@
 import math
 import sys
 
+'''
+Input Data. See slide 6
+
+'''
+
 
 data = {
 	'Gennaro Marrazzo': { 
-		'L1D1': 3, 
+		'L1D1': 3, 			# Person j-Item i --> C[i,j] 
 		'L2D1': 5, 
 		'L3D1': 5, 
 		'L1D2': 2,
@@ -72,14 +77,20 @@ def pearson_similarity(person1, person2):
 
 
 def recommend(person, bound, similarity=pearson_similarity):
+	
+	'''
+	Calculating the scores the score in included into the range [-1,1]. 
+	See slide Pearson Correlaction Coefficient
+	
+	'''
 	scores = [(similarity(person, other), other) for other in data if other != person]
 
 	scores.sort()
 	scores.reverse()
-	#print ("prima",scores)
+	
 	scores = scores[0:bound]
 
-	#print ("dopo",scores)
+	#print ("Printing scores: ",scores)
 
 	recomms = {}
 
@@ -101,16 +112,9 @@ def recommend(person, bound, similarity=pearson_similarity):
 		recomms[r] = sum(item) / sim
 
 	return recomms
+
 def main():
-	
-	'''name = raw_input("Please enter the User's Name: ")
-	print "You entered", name, ". I am calculating the recommandations: "
-	output = recommend(name, 5, pearson_similarity)
-	print output'''
-	
-	
-	print recommend("Stefano Volpe", 1, pearson_similarity)
-    #print euclidean_similarity('Gennaro Marrazzo', 'Vincenzo Paparo')	
+	print "Raccomandation for the user :", recommend("Gennaro Marrazzo", 5 , pearson_similarity)
 
 if __name__ == '__main__':
     main()
