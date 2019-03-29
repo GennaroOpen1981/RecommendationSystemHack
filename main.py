@@ -3,48 +3,64 @@ import sys
 
 '''
 Input Data. See slide 6
-
 '''
-
-
 data = {
-	'Gennaro Marrazzo': { 
-		'L1D1': 3, 			# Person j-Item i --> C[i,j] 
-		'L2D1': 5, 
-		'L3D1': 5, 
-		'L1D2': 2,
+	'troc': { 
+		'f1': 11,
+	#	'f10': 0,
+        'f2': 11,
+        'f3': 10,
+        'f4': 10,
+        'f5': 10,
+        'f6': 6,
+        'f7': 5,
+        'f8': 11#,
+    #    'f9': 0
 	},
-
-	'Paolo Elefante': { 
-		'L1D1': 1, 
-		'L2D1': 2, 
-		'L3D1': 12, 
-		'L1D2': 20,
-		'L3D4': 21, 
-		'L1D4': 2,
-	},
-
-	'Vincenzo Paparo': { 
-		'L1D1': 1, 
-		'L2D1': 5, 
-	},
-
-	'Alfonso Attanasio': { 
-		'L1D1': 7, 
-		'L3D1': 6, 
-		'L1D2': 9,
-	},
-
-	'Stefano Volpe': { 
-		'L3D1': 2, 
-		'L1D2': 5,
-	},
+	'ferrari': {
+		'f1': 4,
+		#'f10': 0,
+        'f2': 4,
+        #'f3': 0,
+        'f4': 1,
+        'f5': 3,
+        'f6': 4,
+        #'f7': 0,
+        'f8': 4
+        #'f9': 0
 	
-	'Salvatore Nocerino': { 
-		'L3D1': 5, 
 	},
+	'panda': {
+       'f1': 3,
+       #'f10': 0,
+       'f2': 3,
+       'f3': 2,
+       'f4': 3,
+       #'f5': 0,
+       'f6': 3,
+       #'f7': 0,
+       'f8': 3,
+       #'f9': 0
 
+     },
+    'giulietta': {
+       'f1': 12,
+       #'f10': 0,
+       'f2': 12,
+       'f3': 12,
+       'f4': 12,
+       'f5': 10,
+       'f6': 5,
+       'f7': 7,
+       'f8': 5,
+       'f9': 7
+
+  }
+
+
+    
 }
+
 
 def euclidean_similarity(person1, person2):
 
@@ -55,6 +71,11 @@ def euclidean_similarity(person1, person2):
 	return 1 / (1 + sum(distance))
 
 def pearson_similarity(person1, person2):
+
+#	print "Person1", person1,"\n"
+#	print "Person2", person2,"\n"
+#	print "data[person1]", data[person1],"\n"
+#	print "data[person2]", data[person2],"\n"
 
 	common_ranked_items = [itm for itm in data[person1] if itm in data[person2]]
 
@@ -104,17 +125,27 @@ def recommend(person, bound, similarity=pearson_similarity):
 				if itm in recomms:
 					s, weights = recomms[itm]
 					recomms[itm] = (s + sim, weights + [weight])
+					#print "else primo for recomms = ",recomms,"\n"
 				else:
 					recomms[itm] = (sim, [weight])
+					#print "else primo for recomms = ",recomms,"\n"
 
 	for r in recomms:
+		#print "secondo for recomms = ",recomms,"\n"
 		sim, item = recomms[r]
-		recomms[r] = sum(item) / sim
+		#print "sim = ",sim,"\n"
+		#print "item = ",item,"\n"
+		#print "SIM = ",sim
+		if sim != 0: 
+		   recomms[r] = sum(item) / sim
 
 	return recomms
 
 def main():
-	print "Raccomandation for the user :", recommend("Gennaro Marrazzo", 5 , pearson_similarity)
+	#print "Data: ",data,"\n"
+	#print "Data Gennaro : ",data.get('Gennaro Marrazzo'),"\n"
+	#print "Similarity", pearson_similarity("Gennaro Marrazzo", "Paolo Elefante")
+	print "Raccomandation for the user :", recommend("panda", 3 , pearson_similarity)
 
 if __name__ == '__main__':
     main()
